@@ -75,7 +75,7 @@ public class UserServiceImpl implements UserService{
                         "\n" +
                         "Please click on the link below to verify your email address:\n" +
                         "\n" +
-                        "http://localhost:8080/api/v1/auth/confirm-email?token=" + confirmationToken.getConfirmationToken() + "\n" +
+                        "https://placementportal-backend-production.up.railway.app/api/v1/auth/confirm-email?token=" + confirmationToken.getConfirmationToken() + "\n" +
                         "\n" +
                         "If you have trouble clicking the link, please copy and paste the following URL into your browser:\n" +
                         "\n" +
