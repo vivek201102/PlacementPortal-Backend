@@ -20,7 +20,7 @@ public class StudentServiceImpl implements StudentService{
 
     @Override
     public Student register(User user) {
-        Student student = Student.builder().user(user).build();
+        Student student = Student.builder().user(user).isPlaced(false).build();
         studentRepository.save(student);
         return student;
     }

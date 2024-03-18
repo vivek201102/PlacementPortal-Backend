@@ -9,6 +9,8 @@ import java.util.List;
 
 @Repository
 public interface PlacementDriveRepository extends JpaRepository<PlacementDrive, Integer> {
-    public List<PlacementDrive> findAllByDeadlineForApplication(Date today);
+    public List<PlacementDrive> findAllByStatusAndDeadlineForApplicationIsGreaterThan(String status, Date today);
+    public List<PlacementDrive> findAllByStatusAndDeadlineForApplicationLessThan(String status, Date today);
+    public List<PlacementDrive> findAllByStatus(String status);
     public List<PlacementDrive> findByDeadlineForApplicationGreaterThan(Date today);
 }

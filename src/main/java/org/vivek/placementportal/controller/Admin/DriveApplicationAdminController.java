@@ -50,4 +50,14 @@ public class DriveApplicationAdminController {
             return ResponseEntity.internalServerError().body(e.getMessage());
         }
     }
+
+    @GetMapping("/get-pending-application-placed")
+    public ResponseEntity<?> getAllPendingApplicationOfPlaced(){
+        try {
+            return ResponseEntity.ok(driveApplicationService.getPendingApplicationsOfPlaced());
+        }
+        catch (Exception e){
+            return ResponseEntity.internalServerError().body(e.getMessage());
+        }
+    }
 }

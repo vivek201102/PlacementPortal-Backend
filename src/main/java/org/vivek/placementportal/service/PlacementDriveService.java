@@ -13,7 +13,10 @@ public interface PlacementDriveService {
     public PlacementDrive update(PlacementDrive placementDrive, int id);
     public List<PlacementDrive> getAll();
     public List<PlacementDrive> getAllCurrent();
+    public List<PlacementDrive> getUnfinished();
+    public List<PlacementDrive> getFinished();
     @Transactional
     public PlacementDrive delete(int id);
     public void sendNotification(SendNotificationRequest request, int driveId);
+    public PlacementDrive completeDrive(int id);
 }

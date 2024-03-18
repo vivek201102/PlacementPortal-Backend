@@ -25,4 +25,5 @@ public class DriveApplication {
     private PlacementDrive placementDrive;
     private Date appliedAt;
     private String status;
+    private String studentPlacementStatus;
 }

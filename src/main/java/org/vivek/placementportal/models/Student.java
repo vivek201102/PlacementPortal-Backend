@@ -17,6 +17,7 @@ public class Student {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
+    private boolean isPlaced;
     @OneToOne
     @JoinColumn(name = "user_id", referencedColumnName = "id")
     private User user;
@@ -24,6 +25,8 @@ public class Student {
     private Set<DriveApplication> driveApplications;
     @OneToMany(mappedBy = "student", cascade = CascadeType.ALL)
     private Set<StudentSkill> studentSkills;
+    @OneToMany(mappedBy = "student", cascade = CascadeType.ALL)
+    private Set<PlacedStudent> placedStudents;
     @OneToMany(mappedBy = "student", cascade = CascadeType.ALL)
     private Set<Education> educations;
     @OneToMany(mappedBy = "student", cascade = CascadeType.ALL)

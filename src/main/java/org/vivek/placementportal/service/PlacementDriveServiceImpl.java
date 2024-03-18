@@ -15,6 +15,9 @@ import org.vivek.placementportal.repository.PlacementDriveRepository;
 
 import java.util.Date;
 import java.util.List;
+import java.util.stream.Collectors;
+
+import static java.util.stream.Collectors.toList;
 
 @Service
 @AllArgsConstructor
@@ -35,6 +38,7 @@ public class PlacementDriveServiceImpl implements PlacementDriveService{
                 .qualification(request.getQualification())
                 .createdAt(new Date())
                 .deadlineForApplication(request.getDeadlineForApplication())
+                .status("ON GOING")
                 .build();
 
         return placementDriveRepository.save(placementDrive);
@@ -73,6 +77,16 @@ public class PlacementDriveServiceImpl implements PlacementDriveService{
     }
 
     @Override
+    public List<PlacementDrive> getUnfinished(){
+        return placementDriveRepository.findAllByStatusAndDeadlineForApplicationLessThan("ON GOING", new Date());
+    }
+
+    @Override
+    public List<PlacementDrive> getFinished() {
+        return placementDriveRepository.findAllByStatus("COMPLETED");
+    }
+
+    @Override
 
     public PlacementDrive delete(int id) {
         PlacementDrive placementDrive = placementDriveRepository.findById(id).orElseThrow(() -> new UsernameNotFoundException("Drive not found with Id: " + id));
@@ -102,5 +116,17 @@ public class PlacementDriveServiceImpl implements PlacementDriveService{
         simpleMailMessage.setBcc(to);
 
         emailService.sendEmail(simpleMailMessage);
+    }
+
+    @Override
+    public PlacementDrive completeDrive(int id) {
+        PlacementDrive placementDrive = placementDriveRepository.findById(id).orElseThrow(() -> new UsernameNotFoundException("Placement drive not found"));
+        placementDrive.setStatus("COMPLETED");
+        placementDriveRepository.save(placementDrive);
+
+        List<DriveApplication> driveApplications = driveApplicationRepository.findAllByPlacementDriveId(id);
+        driveApplications.stream().map(obj -> { obj.setStatus("DONE");  return obj;}).collect(Collectors.toList());
+        driveApplicationRepository.saveAll(driveApplications);
+        return placementDrive;
     }
 }

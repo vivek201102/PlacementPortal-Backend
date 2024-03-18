@@ -13,4 +13,6 @@ public interface DriveApplicationRepository extends JpaRepository<DriveApplicati
     public DriveApplication findByPlacementDriveAndStudent(PlacementDrive placementDrive, Student student);
     public List<DriveApplication> findAllByStatus(String status);
     public List<DriveApplication> findAllByStudentAndStatus(Student student, String status);
+    public List<DriveApplication> findAllByPlacementDriveIdAndStatus(int placementDriveId, String status);
+    public List<DriveApplication> findAllByStudentPlacementStatusAndStatus(String studentPlacementStatus, String status);
 }

@@ -36,6 +36,7 @@ public class DriveApplicationServiceImpl implements DriveApplicationService {
                 .student(student)
                 .appliedAt(new Date())
                 .status("APPLIED")
+                .studentPlacementStatus(request.getStudentStatus())
                 .build();
 
         return driveApplicationRepository.save(driveApplication);
@@ -64,7 +65,7 @@ public class DriveApplicationServiceImpl implements DriveApplicationService {
 
     @Override
     public List<DriveApplication> getDriveApplications(int driveId) {
-        return driveApplicationRepository.findAllByPlacementDriveId(driveId);
+        return driveApplicationRepository.findAllByPlacementDriveIdAndStatus(driveId, "APPROVED");
     }
 
     @Override
@@ -79,7 +80,12 @@ public class DriveApplicationServiceImpl implements DriveApplicationService {
 
     @Override
     public List<DriveApplication> getPendingApplications() {
-        return driveApplicationRepository.findAllByStatus("APPLIED");
+        return driveApplicationRepository.findAllByStudentPlacementStatusAndStatus("NOT PLACED","APPLIED");
+    }
+
+    @Override
+    public List<DriveApplication> getPendingApplicationsOfPlaced() {
+        return driveApplicationRepository.findAllByStudentPlacementStatusAndStatus("PLACED","APPLIED");
     }
 
     @Override

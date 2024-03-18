@@ -3,6 +3,7 @@ package org.vivek.placementportal.controller.Admin;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.vivek.placementportal.dto.CompleteDriveRequest;
 import org.vivek.placementportal.dto.RegisterDriveRequest;
 import org.vivek.placementportal.dto.SendNotificationRequest;
 import org.vivek.placementportal.models.PlacementDrive;
@@ -65,6 +66,26 @@ public class PlacementDriveController {
         }
     }
 
+    @GetMapping("/get-unfinished-drives")
+    public ResponseEntity<?> getUnfinished(){
+        try {
+            return ResponseEntity.ok(placementDriveService.getUnfinished());
+        }
+        catch (Exception e){
+            return ResponseEntity.internalServerError().body(e.getMessage());
+        }
+    }
+
+    @GetMapping("/get-finished-drives")
+    public ResponseEntity<?> getFinished(){
+        try {
+            return ResponseEntity.ok(placementDriveService.getFinished());
+        }
+        catch (Exception e){
+            return ResponseEntity.internalServerError().body(e.getMessage());
+        }
+    }
+
     @DeleteMapping("/delete-drive/{id}")
     public ResponseEntity<?> delete(@PathVariable int id){
         try {
@@ -76,10 +97,20 @@ public class PlacementDriveController {
     }
 
     @PostMapping("/send-notifications/{driveId}")
-    private ResponseEntity<?> sendNotifications(@PathVariable int driveId, @RequestBody SendNotificationRequest request){
+    public ResponseEntity<?> sendNotifications(@PathVariable int driveId, @RequestBody SendNotificationRequest request){
         try {
             placementDriveService.sendNotification(request, driveId);
             return ResponseEntity.ok("success");
+        }
+        catch (Exception e){
+            return ResponseEntity.internalServerError().body(e.getMessage());
+        }
+    }
+
+    @PutMapping("/complete-drive/{driveId}")
+    public ResponseEntity<?> completeDrive(@PathVariable int driveId, @RequestBody CompleteDriveRequest request){
+        try {
+            return ResponseEntity.ok("");
         }
         catch (Exception e){
             return ResponseEntity.internalServerError().body(e.getMessage());

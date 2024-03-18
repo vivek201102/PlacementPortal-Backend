@@ -6,17 +6,21 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.util.Set;
+
 @Entity
-@Data
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class Skill {
+@Data
+public class PlacedStudent {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
-    private String name;
-    @OneToMany(mappedBy = "skill")
-    private Set<StudentSkill> studentSkills;
+    @ManyToOne
+    @JoinColumn(name = "student_id")
+    private Student student;
+    @ManyToOne
+    @JoinColumn(name = "placement_drive_id")
+    private PlacementDrive placementDrive;
+    private Long offerAmount;
 }

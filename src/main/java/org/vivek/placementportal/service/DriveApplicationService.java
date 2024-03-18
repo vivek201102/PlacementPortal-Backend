@@ -15,4 +15,5 @@ public interface DriveApplicationService {
     public List<DriveApplication> getPendingApplications();
     public List<DriveApplication> getAll();
     public List<DriveApplication> getStudentPendingApplication(String studentId);
+    public List<DriveApplication> getPendingApplicationsOfPlaced();
 }

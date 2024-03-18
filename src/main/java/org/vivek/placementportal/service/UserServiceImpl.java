@@ -1,6 +1,7 @@
 package org.vivek.placementportal.service;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.mail.SimpleMailMessage;
@@ -30,6 +31,8 @@ public class UserServiceImpl implements UserService{
     private final ConfirmationTokenRepository confirmationTokenRepository;
     private final EmailService emailService;
     private final TwoFactorAuthenticationService twoFactorAuthenticationService;
+    @Value("${java.baseUrl}")
+    private String baseUrl;
     @Override
     public AuthenticationResponse register(RegistrationRequest request, Role role) {
         // Creating user object
@@ -75,7 +78,7 @@ public class UserServiceImpl implements UserService{
                         "\n" +
                         "Please click on the link below to verify your email address:\n" +
                         "\n" +
-                        "https://placementportal-backend-production.up.railway.app/api/v1/auth/confirm-email?token=" + confirmationToken.getConfirmationToken() + "\n" +
+                        baseUrl + "/api/v1/auth/confirm-email?token=" + confirmationToken.getConfirmationToken() + "\n" +
                         "\n" +
                         "If you have trouble clicking the link, please copy and paste the following URL into your browser:\n" +
                         "\n" +

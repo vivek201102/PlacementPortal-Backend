@@ -10,4 +10,5 @@ import lombok.Data;
 public class RegisterApplicationRequest {
     private String studentId;
     private int driveId;
+    private String studentStatus;
 }

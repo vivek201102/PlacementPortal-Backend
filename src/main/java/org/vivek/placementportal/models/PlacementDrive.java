@@ -26,6 +26,9 @@ public class PlacementDrive {
     private String qualification;
     private Date createdAt;
     private Date deadlineForApplication;
+    private String status;
     @OneToMany(mappedBy = "placementDrive", cascade = CascadeType.ALL, orphanRemoval = true)
     private Set<DriveApplication> driveApplications;
+    @OneToMany(mappedBy = "placementDrive", cascade = CascadeType.ALL)
+    private Set<PlacedStudent> placedStudents;
 }
